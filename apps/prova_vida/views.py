@@ -800,9 +800,10 @@ def getProvaVidasRelatorio(request) :
     
 
     abertura = Abertura_Prova_Vida.objects.filter(estado_actual="aberta")
-    
+    print(abertura)
     if len(abertura)!=0:
         funcionario_concluidos=Employee.objects.filter(provavida__abertura_prova_vida=abertura[0]).distinct()
+        print (funcionario_concluidos)
 
         funcionario_faltas = Employee.objects.exclude(provavida__abertura_prova_vida=abertura[0]).distinct()
     else:
@@ -893,8 +894,8 @@ def getProvaVidasRelatorio(request) :
 
     template_name = "prova_vida/prova_vida_report.html"
 
-    return render(request, template_name)
-    # return render(request, template_name,context)
+     #return render(request, template_name)
+    return render(request, template_name,context)
 
 
 
@@ -1376,7 +1377,8 @@ def export_to_excel(request):
             obj.funcionario.honorario_total,
             obj.funcionario.regime_trabalho,
             obj.funcionario.vencimento_mensal,
-            obj.funcionario.categoria_laboral.nome if obj.funcionario.categoria_laboral else '',
+            obj.funcionario.categoria_laboral_nova.nome if obj.funcionario.categoria_laboral_nova else '',
+            obj.funcionario.categoria_laboral_antiga.nome if obj.funcionario.categoria_laboral_antiga else '',
             obj.funcionario.funcao_chefia.nome if obj.funcionario.funcao_chefia else '',
             obj.funcionario.direccao.nome if obj.funcionario.direccao else '',
             obj.funcionario.habilitacao,
