@@ -116,7 +116,7 @@ urlpatterns = [
     path("delete-categoria/", deleteCategoria, name="categoria-delete"),
 
 
-    path("funcao-chefia-nova/list/categoria-nova-list-ajax/<int:page>", categoria_nova_list_ajax, name="categoria-nova-list-ajax"),
+    
     path("categoria-nova-list-ajax/<int:page>", categoria_nova_list_ajax, name="categoria-nova-list-ajax"),
     path("funcao-chefia-nova/list/", categoria_nova_list, name="categoria-nova-list"),
     path("funcao-chefia-nova/edit/<uuid:id>", categoria_nova_edit, name="categoria-nova-edit"),

@@ -566,6 +566,7 @@ from .models import Employee
 from openpyxl import load_workbook
 
 @login_required(login_url="/accounts/login/")
+
 def upload_excel(request):
     errors = []
     if request.method == 'POST':
@@ -582,26 +583,28 @@ def upload_excel(request):
                 personnel_number = row[3]
                 date_of_birth = row[4]
                 data_de_emissao = row[5]
-                data_de_validade = row[6]
-                numero_seguranca_social = row[7]
-                nacionalidade = row[8]
-                provincia_nascimento = row[9]
-                gender = row[10]
-                estado_civil = row[11]
-                numero_dependentes = row[12]
-                morada = row[13]
-                provincia_residencia = row[14]
-                telefone = row[15]
-                correio_electronico = row[16]
-                data_de_admissao = row[17]
-                direcao_nome = row[18]
-                funcao_chefia = row[19]
-                categoria_antiga_nome = row[20]
-                categoria_nova_nome = row[21]
-                habilitacao = row[22]
-                area_de_formacao = row[23]
-                reforma = row[24]
-                tempo_na_empresa = row[25]
+                nacionalidade = row[6]
+            
+    
+                
+                provincia_nascimento = row[7]
+                gender = row[8]
+                estado_civil = row[9]
+                numero_dependentes = row[10]
+                morada = row[11]
+                provincia_residencia = row[12]
+                telefone = row[13]
+                correio_electronico = row[14]
+                #dados profissionais
+                data_de_admissao = row[15]
+                direcao_nome = row[16]
+                funcao_chefia = row[17]
+                categoria_antiga_nome = row[18]
+                categoria_nova_nome = row[19]
+                habilitacao = row[20]
+                area_de_formacao = row[21]
+                reforma = row[22]
+                tempo_na_empresa = row[23]
 
                 # Conversão de datas
                 def parse_date(date_value):
@@ -617,7 +620,7 @@ def upload_excel(request):
 
                 data_admissao = parse_date(data_de_admissao)
                 data_de_emissao = parse_date(data_de_emissao)
-                data_de_validade = parse_date(data_de_validade)
+           
                 data_de_nascimento = parse_date(date_of_birth)
 
                 # Validação de campos
@@ -630,8 +633,11 @@ def upload_excel(request):
                 direcao = DirecaoAlocacao.objects.filter(nome=direcao_nome).first()
                 habilitacao = validate_field(habilitacao)
                 firstname = validate_field(firstname)
-                tempo_na_empresa = tempo_na_empresa
+                provincia_residencia = validate_field(provincia_residencia)
 
+                tempo_na_empresa = tempo_na_empresa
+                
+                
                 try:
                     Employee.objects.create(
                         # Dados Pessoais   
@@ -640,8 +646,8 @@ def upload_excel(request):
                         personnel_number = personnel_number,
                         date_of_birth = data_de_nascimento,
                         data_de_emissao = data_de_emissao,
-                        data_de_validade = data_de_validade,
-                        numero_seguranca_social = numero_seguranca_social,
+                
+                        
                         nacionalidade = nacionalidade,
                         provincia_nascimento = provincia_nascimento,
                         gender = gender,

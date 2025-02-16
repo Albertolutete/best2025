@@ -555,8 +555,7 @@ def funcao_chefia_add(request):
 def funcao_chefia_list(request):
     abertura = Abertura_Prova_Vida.objects.filter(estado_actual="aberta").first()
 
-    
-    chefias=FuncaoChefia.objects.filter(estado_objecto="activo")
+    chefias = FuncaoChefia.objects.exclude(estado_objecto="Eliminado")
 
     context ={'chefias':chefias,"abertura_actual":abertura}
 
@@ -694,7 +693,8 @@ def categoria_nova_add(request):
 def categoria_list(request, tipo):
     abertura = Abertura_Prova_Vida.objects.filter(estado_actual="aberta").first()
 
-    categorias=Categoria.objects.filter(tipo=tipo)
+    categorias = Categoria.objects.filter(tipo=tipo).exclude(estado_objecto="Eliminado")
+
 
     context ={'categorias':categorias,"abertura_actual":abertura, "tipo_categoria": tipo}
     template_name = "corecode/categoria_list.html"
@@ -704,7 +704,7 @@ def categoria_list(request, tipo):
 def categoria_nova_list(request):
     abertura = Abertura_Prova_Vida.objects.filter(estado_actual="aberta").first()
 
-    categorias_novas =CategoriaNova.objects.all()
+    categorias_novas =CategoriaNova.objects.exclude(estado_objecto="Eliminado")
 
     context ={'categorias_novas':categorias_novas,"abertura_actual":abertura}
 
