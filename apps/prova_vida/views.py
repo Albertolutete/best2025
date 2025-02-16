@@ -352,7 +352,7 @@ def efectuarProvaVida(request):
         employee.date_of_birth = datetime.strptime(request.POST.get('data_nascimento', ''), '%Y-%m-%d') if request.POST.get('data_nascimento') else None
         employee.data_de_emissao = datetime.strptime(request.POST.get('data_de_emissao', ''), '%Y-%m-%d') if request.POST.get('data_de_emissao') else None
         employee.data_de_validade = datetime.strptime(request.POST.get('data_de_validade', ''), '%Y-%m-%d') if request.POST.get('data_de_validade') else None
-        employee.numero_seguranca_social = request.POST['numero_seguranca_social']
+        
         employee.nacionalidade = request.POST['nacionalidade']
         employee.provincia_nascimento = request.POST['provincia_nascimento']
         employee.gender = request.POST['genero']
@@ -1289,7 +1289,6 @@ def export_to_excel(request):
         'Nacionalidade',
         'Número BI',
         'Data de Emissão',
-        'Data de Validade',
         'Data de Nascimento',
         'Morada',
         'Província de Residência',
@@ -1298,9 +1297,7 @@ def export_to_excel(request):
         'Número de Segurança Social',
         'Número de Dependentes',           
         'Data de Emissão',     
-        'Tipo de Vinculo',
-        'Estabelecimento',      
-        'Estação',
+        'Tipo de contracto',
         'Departamento/Direcção',
         'Categoria Laboral Antiga',
         'Categoria Laboral Nova',
@@ -1308,7 +1305,7 @@ def export_to_excel(request):
         'Função de chefia Nova',
         'Salario Base',
         'Habilitação Literaria',
-        'Area de Formação',
+        'Situação',
         'Observação',
     ])  # Adding headers
 
@@ -1329,7 +1326,6 @@ def export_to_excel(request):
             obj.funcionario.nacionalidade,
             obj.funcionario.personnel_number,
             obj.funcionario.data_de_emissao.strftime("%d-%m-%Y") if obj.funcionario.data_de_emissao else '',
-            obj.funcionario.data_de_validade.strftime("%d-%m-%Y") if obj.funcionario.data_de_validade else '',
             obj.funcionario.date_of_birth.strftime("%d-%m-%Y") if obj.funcionario.date_of_birth else '',
             obj.funcionario.morada,
             obj.funcionario.provincia_residencia,
@@ -1342,8 +1338,7 @@ def export_to_excel(request):
 #Profissionais
             obj.funcionario.data_de_admissao,
             obj.funcionario.reforma,
-            str(obj.funcionario.direccao) if obj.funcionario.direccao is not None else '',
-            str(obj.funcionario.estacao) if obj.funcionario.estacao is not None else '',
+           
             str(obj.funcionario.direccaoDepart) if obj.funcionario.direccaoDepart is not None else '',
             obj.funcionario.categoria_laboral_antiga.nome if obj.funcionario.categoria_laboral_antiga else '',
             obj.funcionario.categoria_laboral_nova.nome if obj.funcionario.categoria_laboral_nova else '',

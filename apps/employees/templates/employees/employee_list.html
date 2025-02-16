@@ -221,13 +221,7 @@
                                       name="data_de_emissao">
                                   </div>
                                 </div>
-                                <div class="col-md-4">
-                                  <div class="form-group">
-                                    <label for="data_de_validade" class="control-label">Data de Validade: </label>
-                                    <input type="date" id="data_de_validade" class="form-control" required="required"
-                                      name="data_de_validade">
-                                  </div>
-                                </div>
+                                
                                 <div class="col-md-4">
                                   <div class="form-group">
                                     <label for="data_nascimento" class="control-label">Data de Nascimento: </label>
@@ -266,6 +260,8 @@
                                       <option value="Namibe">Namibe</option>
                                       <option value="Uíge">Uíge</option>
                                       <option value="Zaire">Zaire</option>
+                                      <option value="Icole e Bengo">Icolo e Bengo</option>
+                                      
                                     </select>
                                   </div>
                                 </div>
@@ -306,7 +302,7 @@
                                       placeholder="Número mecanográfico">
                                   </div>
                                 </div>
-                                <div class="col-md-4">
+                               <!--<div class="col-md-4">
                                   <div class="form-group">
                                     <label for="numero_seguranca_social" class="control-label">Número Segurança Social:
                                     </label>
@@ -314,7 +310,7 @@
                                       id="numero_seguranca_social" name="numero_seguranca_social"
                                       placeholder="Número Segurança Social">
                                   </div>
-                                </div>
+                                </div>--> 
                                 <div class="col-md-4">
                                   <div class="form-group">
                                     <label for="numero_dependentes" class="control-label">Número de Dependentes:
@@ -345,44 +341,16 @@
                               </div>
                               <div class="col-md-4">
                                 <div class="form-group">
-                                  <label class="control-label"> Tipo de vínculo:</label>
+                                  <label class="control-label"> Tipo de contracto:</label>
                                   <select class="form-control" name="reforma" required="required">
-                                    <option value="" selected>Efectivo</option>
-                                    <option value="Reformado">Colaborador</option>
-                                    <option value="Pré-reforma">Comissao de serviço</option>
-                                    <option value="Não reformado">Prestação de serviço</option>
-                                    <option value="Não reformado">Avençado</option>
-                                    <option value="Não reformado">Activo</option>
+                                    <option value="Determinado" selected>Determinado</option>
+                                    <option value="Indeterminado">Indeterminado</option>
+                                    <option value="Prestação de serviço">Prestação de serviço</option>
+                                   
                                   </select>
                                 </div>
                               </div>
-                              <div class="col-md-4">
-                                <div class="form-group">
-                                  <label class="control-label">Estabelecimento:</label>
-                                  <select class="form-control" name="direcao_alocacao">
-                                    <option value=" " selected>Selecione</option>
-                                    {% for direccao in direccoes %}
-
-                                    <option value="{{direccao.id}}">{{direccao.nome}}</option>
-
-                                    {% endfor %}
-                                  </select>
-                                </div>
-                              </div>
-
-                              <div class="col-md-4">
-                                <div class="form-group">
-                                  <label class="control-label">Estacao:</label>
-                                  <select class="form-control" name="estacao">
-                                    <option value=" " selected>Selecione</option>
-                                    {% for estacao in estacao %}
-
-                                    <option value="{{estacao.id}}">{{estacao.nome}}</option>
-
-                                    {% endfor %}
-                                  </select>
-                                </div>
-                              </div>
+                              
 
                               
                               <div class="col-md-4">
@@ -479,9 +447,16 @@
                               </div>
                               <div class="col-md-4">
                                 <div class="form-group">
-                                  <label for="area_de_formacao" class="control-label">Área de Formação: </label>
-                                  <input type="text" class="form-control" id="area_de_formacao" name="area_de_formacao"
-                                    placeholder="Informe a área de formação">
+                                  <label for="area_de_formacao" class="control-label">Situação: </label>
+                                  
+
+                                    <select class="form-control" name="area_de_formacao" id="area_de_formacao" required="required">
+                                      <option value="Pré-reformado" selected>Pré-reformado</option>
+                                      <option value="Avençado">Avençado</option>
+                                      <option value="Avençado">Reformado</option>
+                                      <option value="Comissão  de serviço">Comissão  de serviço</option>
+                                     
+                                    </select>
                                 </div>
                               </div>
 

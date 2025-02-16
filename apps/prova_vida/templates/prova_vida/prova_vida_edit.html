@@ -179,15 +179,7 @@
                                               name="data_de_emissao" value="{{funcionario.data_de_emissao|date:'Y-m-d'}}">
                                           </div>
                                         </div>
-                                        <div class="col-md-4">
-                                          <div class="form-group">
-                                            <label for="data_de_validade" class="control-label">Data de Validade:
-                                            </label>
-                                            <input type="date" id="data_de_validade" class="form-control"
-                                              name="data_de_validade"
-                                              value="{{funcionario.data_de_validade|date:'Y-m-d'}}">
-                                          </div>
-                                        </div>
+                                        
                                         <div class="col-md-4">
                                           <div class="form-group">
                                             <label for="data_nascimento" class="control-label">Data de Nascimento: </label>
@@ -306,48 +298,21 @@
                                       </div>
                                       <div class="col-md-4">
                                         <div class="form-group">
-                                          <label class="control-label">Tipo de Vínculo:</label>
+                                          <label class="control-label">Tipo de contracto:</label>
                                           <select class="form-control" name="reforma" required="required">
                                             <option value="{{funcionario.reforma}}"  value="{{funcionario.reforma}}" selected>{{funcionario.reforma}}</option>
-                                            <option value="Reformado">Efectivo</option>
-                                            <option value="Pré-reforma">Colaborador</option>
-                                            <option value="Pré-reforma">Comissão de serviço</option>
-                                            <option value="Pré-reforma">prestação de serviço</option>
-                                            <option value="Não reformado">Avençado</option>
-                                            <option value="Não reformado">Activo</option>
+                                            <option value="Determinado" selected>Determinado</option>
+                                            <option value="Indeterminado">Indeterminado</option>
+                                            <option value="Prestação de serviço">Prestação de serviço</option>
                                           </select>
                                         </div>
                                       </div>
-                                      <div class="col-md-4">
-                                        <div class="form-group">
-                                          <label class="control-label">Estabelecimento:</label>
-                                          <select class="form-control" name="direcao_alocacao">
-                                            <option value="{{funcionario.direccao.id}}" selected>{{funcionario.direccao}}</option>
-                                            {% for direccao in direccoes %}
-        
-                                            <option value="{{direccao.id}}">{{direccao.nome}}</option>
-        
-                                            {% endfor %}
-                                          </select>
-                                        </div>
-                                      </div>
+                                    
 
+        
                                       <div class="col-md-4">
                                         <div class="form-group">
-                                          <label class="control-label">Estação:</label>
-                                          <select class="form-control" name="estacao">
-                                            <option value="{{funcionario.estacao.id}}" selected>{{funcionario.estacao}}</option>
-                                            {% for estacao in estacao %}
-        
-                                            <option value="{{estacao.id}}">{{estacao.nome}}</option>
-        
-                                            {% endfor %}
-                                          </select>
-                                        </div>
-                                      </div>
-                                      <div class="col-md-4">
-                                        <div class="form-group">
-                                          <label class="control-label">Departamento:</label>
+                                          <label class="control-label">Departamento/Direcção:</label>
                                           <select class="form-control" name="departament_direcao">
                                             <option value="{{funcionario.direccaoDepart.id}}" selected>{{funcionario.direccaoDepart}}</option>
                                             {% for direccaoDepart in direccaoDepart %}
@@ -447,9 +412,14 @@
                                       </div>
                                       <div class="col-md-4">
                                         <div class="form-group">
-                                          <label for="area_de_formacao" class="control-label">Área de Formação: </label>
-                                          <input type="text" class="form-control" id="area_de_formacao" name="area_de_formacao"
-                                            placeholder="Informe a área de formação" value="{{funcionario.area_de_formacao}}">
+                                          <label for="area_de_formacao" class="control-label">Situação: </label>
+                                          <select class="form-control" name="area_de_formacao" id="area_de_formacao" required="required">   
+                                            <option value="{{funcionario.area_de_formacao}}"   selected>{{funcionario.area_de_formacao}}</option>
+                                            <option value="Pré-reformado" >Pré-reformado</option>
+                                                  <option value="Avençado">Avençado</option>
+                                                  <option value="Avençado">Reformado</option>
+                                                  <option value="Comissão  de serviço">Comissão  de serviço</option>
+                                          </select>
                                         </div>
                                       </div>
         

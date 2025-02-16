@@ -45,7 +45,7 @@
           <div class="iq-card-header d-flex justify-content-between">
              <div class="iq-header-title">
                 <br>
-                <h4 class="card-title">Formulário de Recolha de Informações Para o Processo de Prova de Vidassss</h4>
+                <h4 class="card-title">Formulário de Recolha de Informações Para o Processo de Prova de Vida</h4>
              </div>
           </div>
           <div class="iq-card-body" style="padding-left: 0;">
@@ -71,16 +71,11 @@
                     {% csrf_token %}
                     <fieldset>
                       <input type="text" value="{{funcionario.id}}" hidden name="id">
-                      <div class="form-card text-left">
-                        <div class="row">
-                          <div class="col-12">
-                            <h3 class="mb-4">Informações Pessoais:</h3>
-                          </div>
-                        </div>
+                    
                         <div class="form-card text-left">
                           <div class="row">
                             <div class="col-12">
-                              <!-- <h4 class="mb-4">Informações Pessoais:</h4> -->
+                              <h3 class="mb-4">Informações Pessoais:</h3> 
                             </div>
                           </div>
                           <div class="row">
@@ -157,14 +152,7 @@
                                   name="data_de_emissao" value="{{funcionario.data_de_emissao|date:'Y-m-d'}}">
                               </div>
                             </div>
-                            <div class="col-md-4">
-                              <div class="form-group">
-                                <label for="data_de_validade" class="control-label">Data de Validade:
-                                </label>
-                                <input type="date" id="data_de_validade" class="form-control"
-                                  name="data_de_validade"
-                                  value="{{funcionario.data_de_validade|date:'Y-m-d'}}">
-                              </div>
+                            
                             </div>
                             <div class="col-md-4">
                               <div class="form-group">
@@ -232,6 +220,8 @@
                                   <option value="Namibe">Namibe</option>
                                   <option value="Uíge">Uíge</option>
                                   <option value="Zaire">Zaire</option>
+                                  <option value="Icole e Bengo">Icole e Bengo</option>
+
                                 </select>
                               </div>
                             </div>
@@ -245,15 +235,7 @@
                                   placeholder="Número mecanográfico"  value="{{funcionario.numero_mecanografico}}">
                               </div>
                             </div>
-                            <div class="col-md-4">
-                              <div class="form-group">
-                                <label for="numero_seguranca_social" class="control-label">Número Segurança Social:
-                                </label>
-                                <input type="text" class="form-control" required="required"
-                                  id="numero_seguranca_social" name="numero_seguranca_social"
-                                  placeholder="Número Segurança Social"  value="{{funcionario.numero_seguranca_social}}">
-                              </div>
-                            </div>
+                            
                             <div class="col-md-4">
                               <div class="form-group">
                                 <label for="numero_dependentes" class="control-label">Número de Dependentes:
@@ -262,9 +244,9 @@
                                   name="numero_dependentes" placeholder="Informe o nº de dependentes"  value="{{funcionario.numero_dependentes}}">
                               </div>
                             </div>
-                          </div>
                         </div>
-                      </div>
+                
+                      
 
                       <hr>
 
@@ -284,45 +266,19 @@
                           </div>
                           <div class="col-md-4">
                             <div class="form-group">
-                              <label class="control-label">Tipo de Vínculo:</label>
+                              <label class="control-label">Tipo de contracto:</label>
+                              
                               <select class="form-control" name="reforma" required="required">
                                 <option value="{{funcionario.reforma}}"  value="{{funcionario.reforma}}" selected>{{funcionario.reforma}}</option>
-                                <option value="Reformado">Efectivo</option>
-                                <option value="Reformado">Colaborador</option>
-                                <option value="Reformado">Comissão de serviço</option>
-                                <option value="Pré-reforma">Prestação de serviço</option>
-                                <option value="Não reformado">Avençado</option>
-                                <option value="Não reformado">Activo</option>
+                                <option value="Determinado" selected>Determinado</option>
+                                    <option value="Indeterminado">Indeterminado</option>
+                                    <option value="Prestação de serviço">Prestação de serviço</option>
                               </select>
                             </div>
                           </div>
-                          <div class="col-md-4">
-                            <div class="form-group">
-                              <label class="control-label">Estabelecimento:</label>
-                              <select class="form-control" name="direcao_alocacao">
-                                <option value="{{funcionario.direccao.id}}" selected>{{funcionario.direccao}}</option>
-                                {% for direccao in direccoes %}
+                          
 
-                                <option value="{{direccao.id}}">{{direccao.nome}}</option>
-
-                                {% endfor %}
-                              </select>
-                            </div>
-                          </div>
-
-                          <div class="col-md-4">
-                            <div class="form-group">
-                              <label class="control-label">Estação:</label>
-                              <select class="form-control" name="estacao">
-                                <option value="{{funcionario.estacao.id}}" selected>{{funcionario.estacao}}</option>
-                                {% for estacao in estacao %}
-
-                                <option value="{{estacao.id}}">{{estacao.nome}}</option>
-
-                                {% endfor %}
-                              </select>
-                            </div>
-                          </div>
+                        
 
                           <div class="col-md-4">
                             <div class="form-group">
@@ -417,9 +373,15 @@
                           </div>
                           <div class="col-md-4">
                             <div class="form-group">
-                              <label for="area_de_formacao" class="control-label">Área de Formação: </label>
-                              <input type="text" class="form-control" id="area_de_formacao" name="area_de_formacao"
-                                placeholder="Informe a área de formação" value="{{funcionario.area_de_formacao}}">
+                              <label for="area_de_formacao" class="control-label">Situação: </label>
+                        
+                                <select class="form-control" name="area_de_formacao" id="area_de_formacao" required="required">   
+                                <option value="{{funcionario.area_de_formacao}}"   selected>{{funcionario.area_de_formacao}}</option>
+                                <option value="Pré-reformado" >Pré-reformado</option>
+                                      <option value="Avençado">Avençado</option>
+                                      <option value="Avençado">Reformado</option>
+                                      <option value="Comissão  de serviço">Comissão  de serviço</option>
+                              </select>
                             </div>
                           </div>
 

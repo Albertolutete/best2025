@@ -234,7 +234,7 @@ def addFuncionario(request):
         date_of_birth = datetime.strptime(request.POST.get('data_nascimento', ''), '%Y-%m-%d') if request.POST.get('data_nascimento') else None,
         data_de_emissao = datetime.strptime(request.POST.get('data_de_emissao', ''), '%Y-%m-%d') if request.POST.get('data_de_emissao') else None,
         data_de_validade = datetime.strptime(request.POST.get('data_de_validade', ''), '%Y-%m-%d') if request.POST.get('data_de_validade') else None,
-        numero_seguranca_social = request.POST['numero_seguranca_social'],
+        
         nacionalidade = request.POST['nacionalidade'],
         provincia_nascimento = request.POST['provincia_nascimento'],
         gender = request.POST['genero'],
@@ -504,7 +504,7 @@ def editFuncionario(request):
     funcionario.date_of_birth = datetime.strptime(request.POST.get('data_nascimento', ''), '%Y-%m-%d') if request.POST.get('data_nascimento') else None
     funcionario.data_de_emissao = datetime.strptime(request.POST.get('data_de_emissao', ''), '%Y-%m-%d') if request.POST.get('data_de_emissao') else None
     funcionario.data_de_validade = datetime.strptime(request.POST.get('data_de_validade', ''), '%Y-%m-%d') if request.POST.get('data_de_validade') else None
-    funcionario.numero_seguranca_social = request.POST['numero_seguranca_social']
+    
     funcionario.nacionalidade = request.POST['nacionalidade']
     funcionario.provincia_nascimento = request.POST['provincia_nascimento']
     funcionario.gender = request.POST['genero']
@@ -1158,36 +1158,33 @@ def employee_list_ajax(request,page):
 def export_to_excel(request):
     workbook = Workbook()
     worksheet = workbook.active
-    worksheet.append(["Número Mecanográfico", 
-    "Número INSS", 
-    # "Novo Número Mecanográfico", 
+    worksheet.append([
+     # "Dados pessoais"     
+    "Número Mecanográfico",  
     "Nome Completo", 
     "Gênero", 
     "Data de Nascimento", 
     "Nº do BI", 
     "Data de Emissão", 
-    "Data de Validade",  
     "Estado Cívil", 
-    "Localidade", 
     "Morada", 
     "Província de Residência",
     "Província de Nascimento", 
-    "Naturalidade", 
     "Contacto Telefônico",
-    "Correio Electrônico",  
+    "Número de Dependentes",
+    "Correio Electrônico", 
+# "DADOS PROFISSIONAIS" 
     "Data de Admissão", 
     "Departamento", 
-    "Estabelecimento", 
-    "Categoria Laboral", 
-    # "Nova Categoria Laboral", 
-    "Função de Chefia", 
-    #"Número de Dependentes", 
-    "Vencimento Mensal", 
-    # "Novo Vencimento Mensal", 
+    "Categoria Laboral Nova", 
+    "Categoria Laboral Antiga",
+    "Função de Chefia Antiga", 
+    "Função de Chefia Nova", 
+    "Tipo de contracto",    
+    "Salario base", 
+    "Habilitação Literária", 
     "Situação", 
-    # "Estado", 
-    "Habilitação Literária",
-    "Área de Formação"
+    
     ]) 
     # "Estado da Prova de Vida", 
     # "Data de Realização da Prova de Vida", 
@@ -1196,47 +1193,39 @@ def export_to_excel(request):
     queryset = Employee.objects.all()  # Replace 'YourModel' with the name of your Django model
 
     for obj in queryset:
-        categoria = ''
-        funcao_chefia = ''
-        direccao = ''
-        
-        if  obj.categoria_laboral_antiga is not None:
-            categoria= obj.categoria_laboral_antiga.nome
-
-        if  obj.funcao_chefia is not None:
-            funcao_chefia= obj.funcao_chefia.nome
-
-        if  obj.direccao is not None:
-            direccao= obj.direccao.nome
+        categoria = obj.categoria_laboral_antiga.nome if obj.categoria_laboral_antiga else ''
+        funcao_chefia = obj.funcao_chefia.nome if obj.funcao_chefia else ''
+        funcao_chefia_nova = obj.funcao_chefia_nova.nome if obj.funcao_chefia_nova else ''
+        departamento_direccao = obj.direccaoDepart.nome if obj.direccaoDepart else ''  # Alterado para departamento
+        tipo_contrato = obj.reforma if obj.reforma else ''
 
         worksheet.append([
-        obj.numero_mecanografico,
-        obj.numero_seguranca_social,
-        obj.firstname,
-        obj.gender,
-        obj.date_of_birth.strftime("%d-%m-%Y") if obj.date_of_birth else '',
-        obj.personnel_number,
-        obj.data_de_emissao,
-        obj.data_de_validade,
-        obj.estado_civil,
-        obj.localidade,
-        obj.morada,
-        obj.provincia_residencia,
-        obj.provincia_nascimento,
-        obj.naturalidade,
-        obj.telefone,
-        obj.correio_electronico,
-        obj.data_de_admissao.strftime("%d-%m-%Y") if obj.data_de_admissao else '',
-        direccao,
-        categoria,
-        # obj.categoria_nova.nome,
-        funcao_chefia,
-        obj.vencimento_mensal,
-        #obj.numero_dependentes,
-        obj.current_status,
-        # obj.estado,
-        obj.habilitacao,
-        obj.area_de_formacao,
+            obj.numero_mecanografico,
+            obj.firstname,
+            obj.gender,
+            obj.date_of_birth.strftime("%d-%m-%Y") if obj.date_of_birth else '',
+            obj.personnel_number,
+            obj.data_de_emissao.strftime("%d-%m-%Y") if obj.data_de_emissao else '',
+            obj.estado_civil,
+            obj.morada,
+            obj.provincia_residencia,
+            obj.provincia_nascimento,
+            obj.telefone,
+            obj.numero_dependentes,
+            obj.correio_electronico,
+
+            # "Dados Profissionais"
+            obj.data_de_admissao.strftime("%d-%m-%Y") if obj.data_de_admissao else '',
+            departamento_direccao,  # Adicionando "Departamento/Direcção"
+            str(obj.categoria_laboral_nova) if obj.categoria_laboral_nova else '',
+            categoria,    
+            funcao_chefia,  
+            funcao_chefia_nova,  # Adicionando Função Chefia Nova
+            tipo_contrato,  # Adicionando Tipo de Contrato
+            obj.vencimento_mensal,
+            obj.habilitacao,
+            obj.area_de_formacao,
+            
         ])
         # obj.estado_pv,
         # obj.data_prova_vida.strftime("%d-%m-%Y"),
